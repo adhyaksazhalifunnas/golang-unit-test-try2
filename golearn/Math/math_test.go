@@ -74,20 +74,28 @@ func TestAbsolute_Table(t *testing.T) {
 	}
 }
 
-func TestAdd(t *testing.T) {
+func TestMultiply(t *testing.T) {
 
-	t.Run("negative test case", func(t *testing.T) {
-		c := Add(-1, -2)
-		assert.Equal(t, -3, c, "expect -3, got %d", c)
+	t.Run("negative-negative test case", func(t *testing.T) {
+		c := Multiply(-1, -2)
+		assert.Equal(t, 2, c, "expect 2, got %d", c)
 	})
-	t.Run("positive test case", func(t *testing.T) {
-		c := Add(1, -2)
-		assert.Equal(t, -1, c, "expect -1, got %d", c)
+	t.Run("negative-positive test case", func(t *testing.T) {
+		c := Multiply(-2, 3)
+		assert.Equal(t, -6, c, "expect -6, got %d", c)
+	})
+	t.Run("positive-negative test case", func(t *testing.T) {
+		c := Multiply(3, -4)
+		assert.Equal(t, -12, c, "expect -12, got %d", c)
+	})
+	t.Run("positive-positive test case", func(t *testing.T) {
+		c := Multiply(4, 5)
+		assert.Equal(t, 20, c, "expect 20, got %d", c)
 	})
 
 }
 
-func TestAdd_Table(t *testing.T) {
+func TestMultiply_Table(t *testing.T) {
 	testCases := []struct {
 		name     string
 		a, b     int
@@ -97,31 +105,31 @@ func TestAdd_Table(t *testing.T) {
 			name:     "negative and negative",
 			a:        -1,
 			b:        -1,
-			expected: -2,
+			expected: 1,
 		},
 		{
 			name:     "negative and positive",
-			a:        -1,
-			b:        1,
-			expected: 0,
+			a:        -5,
+			b:        2,
+			expected: -10,
 		},
 		{
 			name:     "positive and positive",
-			a:        1,
-			b:        1,
-			expected: 2,
+			a:        3,
+			b:        2,
+			expected: 6,
 		},
 		{
 			name:     "positive and negative",
-			a:        1,
-			b:        -1,
-			expected: 0,
+			a:        2,
+			b:        -6,
+			expected: -12,
 		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			c := Add(tc.a, tc.b)
+			c := Multiply(tc.a, tc.b)
 			assert.Equal(t, tc.expected, c)
 		})
 	}
